@@ -91,7 +91,5 @@ func sayHello(w http.ResponseWriter, r *http.Request) {
 func main() {
 	http.HandleFunc("/", sayHello)
 
-	if err := http.ListenAndServe(":", nil); err != nil {
-		panic(err)
-	}
+	http.ListenAndServe(":"+os.Getenv("PORT"), nil)
 }
