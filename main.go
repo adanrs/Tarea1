@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+	   "os"
 )
 
 var numeroaPalabra = map[int]string{
@@ -71,7 +72,7 @@ func isLeap(texto string) bool {
 	return year%400 == 0 || year%4 == 0 && year%100 != 0
 
 }
-func sayHello(w http.ResponseWriter, r *http.Request) {
+func handler(w http.ResponseWriter, r *http.Request) {
 	message := r.URL.Path
 	message = strings.TrimPrefix(message, "/")
 
@@ -89,7 +90,6 @@ func sayHello(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("/", sayHello)
-
-	http.ListenAndServe(":"+os.Getenv("PORT"), nil)
+    http.HandleFunc("/", handler)
+    http.ListenAndServe(":"+os.Getenv("PORT"), nil)
 }
